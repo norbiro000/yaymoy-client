@@ -6,12 +6,8 @@
 
 <script>
 export default {
-
 }
 </script>
 
 <style>
-.tour-card-view {
-  width: 100%;
-}
 </style>
