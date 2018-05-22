@@ -1,20 +1,24 @@
 <template>
-  <div class="tour-card tour-card--border-rounded tour-card__theme-bright shadow-1">
-    <img :src="image" alt="" class="tour-card__image ">
-    <div class="tour-card__content">
-      <h3 class="tour-card__category_text_display">{{ categoryName }}</h3>
-      <h1 class="tour-card__title">{{ title }}</h1>
-      <p class="tour-card__description">
-        {{ shortDescription }}
-      </p>
-
+  <transition name="menu-popover">
+    <div class="tour-card tour-card--border-rounded tour-card__theme-bright shadow-1" @click="fullScreen">
+      <img :src="image" alt="" class="tour-card__image ">
+      <div class="tour-card__content">
+        <h3 class="tour-card__category_text_display">{{ categoryName }}</h3>
+        <h1 class="tour-card__title">{{ title }}</h1>
+        <p class="tour-card__description">
+          {{ shortDescription }}
+        </p>
+      </div>
     </div>
-  </div>
+    </transition>
 </template>
 
 <script>
 export default {
   props: {
+    id: {
+      type: String
+    },
     title: {
       type: String,
       required: true,
@@ -39,62 +43,77 @@ export default {
     description: {
       type: String
     }
+  },
+  methods: {
+    fullScreen () {
+      let props = {
+        image: this.image,
+        title: this.title,
+        id: this.id,
+        categoryName: this.categoryName,
+        shortDescription: this.shortDescription,
+        description: this.description
+      }
+      this.$router.push({name: 'tour', params: props})
+    }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+div {
+  transition: all 200ms;
+}
+
 .tour-card {
+  position: relative;
   width: 100%;
   padding: 0px;
   margin: 40px auto;
   overflow: hidden;
   cursor: pointer;
-}
+  background: white;
 
-.tour-card:first-child {
-  margin: 0px auto;
-}
+  &:first-child {
+    margin: 0px auto;
+  }
 
-.tour-card__content {
-  padding: 0px 16px 32px 16px;
-  font-weight: 300;
-}
+  &__content {
+    padding: 0px 16px 32px 16px;
+    font-weight: 300;
+  }
 
-.tour-card--border-rounded {
-  border-radius: 20px;
-}
-.tour-card__image {
-  position: relative;
-  width: 100%;
-}
+  &__image {
+    position: relative;
+    width: 100%;
+  }
 
-.tour-card__theme-bright {
-  font-family: 'IBM Plex Sans';
+  &__title {
+    margin: 0px;
+    font-weight: bold;
+  }
+
+  &__category_text_display {
+    color:gray;
+    margin: 0px;
+    margin-top: 16px;
+  }
+  &__description {
+    margin: 0px;
+    margin-top: 8px;
+    color:gray;
+  }
+
+  &__theme-bright {
+    font-family: 'IBM Plex Sans';
+  }
+
+  &--border-rounded {
+    border-radius: 20px;
+  }
 }
 
 .shadow-1 {
   box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
-}
-
-.tour-card__price-banner {
-  position: relative;
-  top: 100%;
-}
-
-/* Text */
-.tour-card__title {
-  margin: 0px;
-  font-weight: bold;
-}
-.tour-card__category_text_display {
-  color:gray;
-  margin: 0px;
-  margin-top: 16px;
-}
-.tour-card__description {
-  margin: 0px;
-  margin-top: 8px;
-  color:gray;
 }
 </style>
