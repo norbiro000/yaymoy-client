@@ -42,6 +42,9 @@ export default {
     },
     description: {
       type: String
+    },
+    schedules: {
+      type: Object
     }
   },
   methods: {
@@ -52,7 +55,8 @@ export default {
         id: this.id,
         categoryName: this.categoryName,
         shortDescription: this.shortDescription,
-        description: this.description
+        description: this.description,
+        schedules: this.schedules
       }
       this.$router.push({name: 'tour', params: props})
     }
@@ -98,6 +102,7 @@ div {
     margin: 0px;
     margin-top: 16px;
   }
+
   &__description {
     margin: 0px;
     margin-top: 8px;
@@ -111,9 +116,5 @@ div {
   &--border-rounded {
     border-radius: 20px;
   }
-}
-
-.shadow-1 {
-  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
 }
 </style>
