@@ -13,15 +13,21 @@
         <p class="tour-display__description">
           {{ description }}
         </p>
-        <div v-for="i in [1, 2, 3, 4, 5]" :key="i">
-          
+        <hr/>
+        <div class="tour-display__schedule">
+          <TourCardSchedules
+            :schedules="schedules"
+            >
+          </TourCardSchedules>
         </div>
+        <hr/>
       </div>
     </div>
   </transition>
 </template>
 
 <script>
+import TourCardSchedules from './TourCardSchedules'
 export default {
   props: {
     id: {
@@ -50,12 +56,18 @@ export default {
     },
     description: {
       type: String
+    },
+    schedules: {
+      type: Object
     }
   },
   methods: {
     closePage () {
       this.$router.go(-1)
     }
+  },
+  components: {
+    TourCardSchedules
   }
 }
 </script>
@@ -67,6 +79,7 @@ export default {
   min-height: 100%;
   top: 0%;
   left: 0%;
+
   & img {
     width: 100%;
   }
@@ -112,5 +125,10 @@ export default {
     top: 50%;
     transform: translateY(-50%)
   }
+}
+
+hr {
+  margin: 30px 0px;
+  border: rgba($color: #000000, $alpha: 0.1) dashed 1px;
 }
 </style>
